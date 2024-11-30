@@ -19,8 +19,8 @@ void dfsRec(
     // Print the current vertex
     std::cout << "Path: \n";
 
-    for (auto& v : path) cout << v << " ";
-    cout << "\n";
+    for (auto& v : path) std::cout << v << " ";
+    std::cout << "\n";
 
     // Recursively visit all adjacent vertices
     // that are not visited yet
