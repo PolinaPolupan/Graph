@@ -36,3 +36,6 @@ add_custom_command(TARGET graph_exe POST_BUILD        # Adds a post-build event 
     COMMAND ${CMAKE_COMMAND} -E copy_directory # which executes "cmake - E copy_if_different..."
         "${GRAPHVIZ_DIR}/bin"    
         $<TARGET_FILE_DIR:graph_exe>)             
+
+
+target_compile_definitions(graph_exe PRIVATE PROJECT_DIR="${CMAKE_SOURCE_DIR}")

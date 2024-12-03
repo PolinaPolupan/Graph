@@ -4,6 +4,12 @@
 #include <graph2img.h>
 #include <initializer.h>
 #include <vertex.h>
+#include <filesystem>
+#include <windows.h>
+
+void openImage(const std::string& filePath) {
+	ShellExecute(0, "open", filePath.c_str(), 0, 0, SW_SHOWNORMAL);
+}
 
 using namespace std;
 
@@ -23,21 +29,31 @@ int main() {
 	graph.printEdgeWeights();
 	graph.printVertices();
 
-	printImage<int>("C:/Users/polup/Pictures/Saved Pictures/graph", "png", graph);
+	std::filesystem::path baseDir = std::filesystem::path(PROJECT_DIR);
+
+	printImage<int>((baseDir / "output" / "graph").string(), "png", graph);
+
+	openImage((baseDir / "output" / "graph.png").string());
 
 	graph.removeVertex(3);
 
-	printImage<int>("C:/Users/polup/Pictures/Saved Pictures/graphRemove", "png", graph);
+	printImage<int>((baseDir / "output" / "graphRemove").string(), "png", graph);
+
+	openImage((baseDir / "output" / "graphRemove.png").string());
 
 	graph.addVertex(6);
 	graph.addEdge(2, 6);
 	graph.addEdge(4, 6);
 
-	printImage<int>("C:/Users/polup/Pictures/Saved Pictures/graphAdd", "png", graph);
+	printImage<int>((baseDir / "output" / "graphAdd").string(), "png", graph);
+
+	openImage((baseDir / "output" / "graphAdd.png").string());
 
 	graph.setWeight({ 2, 6 }, 7);
 
-	printImage<int>("C:/Users/polup/Pictures/Saved Pictures/graphWeight", "png", graph);
+	printImage<int>((baseDir / "output" / "graphWeight").string(), "png", graph);
+
+	openImage((baseDir / "output" / "graphWeight.png").string());
 
 	dfs(graph);
 
@@ -50,5 +66,7 @@ int main() {
 	graphMarked.addVertex(b);
 	graphMarked.addEdge(a, b);
 
-	printImage<MarkedVertex<char, char>>("C:/Users/polup/Pictures/Saved Pictures/graphMarked", "png", graphMarked);
+	printImage<MarkedVertex<char, char>>((baseDir / "output" / "graphMarked").string(), "png", graphMarked);
+
+	openImage((baseDir / "output" / "graphMarked.png").string());
 }
